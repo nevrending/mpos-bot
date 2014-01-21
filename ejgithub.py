@@ -61,6 +61,8 @@ def main():
     irc.nick(settings['nick'])
     irc.user(settings['user'])
     irc.join(settings['channel'])
+    irc.send("PRIVMSG nickserv identify"+settings['password']+"\r\n")
+    irc.send("PRIVMSG chanserv op "+settings['channel'])
 
     logger.info('Entering process loop')
     while True:
