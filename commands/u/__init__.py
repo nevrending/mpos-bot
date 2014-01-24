@@ -13,7 +13,8 @@ def u_run_cmd(line, config):
             logger.error('Request failed with http error: ' + str(url.getcode()))
             return False
         jsonData = json.loads(url.read())
-        strInvalidPercentage = str(round(int(jsonData['getuserstatus']['data']['shares']['invalid']) / int(jsonData['getuserstatus']['data']['shares']['valid']) * 100, 4))
+        strPoolLuck = str(round(jsonPublicData['shares_this_round'] / jsonData['getpoolstatus']['data']['estshares'] * 100, 2))
+        strInvalidPercentage = str(round(jsonData['getuserstatus']['data']['shares']['invalid'] / jsonData['getuserstatus']['data']['shares']['valid'] * 100, 2))
         logger.info('Completed command')
         return 'PRIVMSG ' + config['channel'] + ' :' + 'Username: ' + str(jsonData['getuserstatus']['data']['username']) + ' | Hashrate: ' + str(jsonData['getuserstatus']['data']['hashrate']) + ' kh/s' + ' | Shares Valid: ' + str(jsonData['getuserstatus']['data']['shares']['valid']) + ' | Shares Invalid: ' + str(jsonData['getuserstatus']['data']['shares']['invalid']) + ' (' + strInvalidPercentage + '%)'
     logger.info('Completed command')
