@@ -13,8 +13,8 @@ def u_run_cmd(line, config):
             logger.error('Request failed with http error: ' + str(url.getcode()))
             return False
         jsonData = json.loads(url.read())
-        logger.info('Completed command')
         strInvalidPercentage = str(round(jsonData['getuserstatus']['data']['shares']['invalid'] / jsonData['getuserstatus']['data']['shares']['valid'] * 100, 2))
-        return 'PRIVMSG ' + config['channel'] + ' :' + 'Username: ' + str(jsonData['getuserstatus']['data']['username']) + ' | Hashrate: ' + str(jsonData['getuserstatus']['data']['hashrate']) + ' kh/s' + ' | Shares Valid: ' + str(jsonData['getuserstatus']['data']['shares']['valid']) + ' | Shares Invalid: (' + strInvalidPercentage + '%)' + str(jsonData['getuserstatus']['data']['shares']['invalid'])
+        logger.info('Completed command')
+        return 'PRIVMSG ' + config['channel'] + ' :' + 'Username: ' + str(jsonData['getuserstatus']['data']['username']) + ' | Hashrate: ' + str(jsonData['getuserstatus']['data']['hashrate']) + ' kh/s' + ' | Shares Valid: ' + str(jsonData['getuserstatus']['data']['shares']['valid']) + ' | Shares Invalid: ' + str(jsonData['getuserstatus']['data']['shares']['invalid']) + ' (' + strInvalidPercentage + ')'
     logger.info('Completed command')
     return 'PRIVMSG ' + config['channel'] + ' : Unable to find username'
